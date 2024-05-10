@@ -1,6 +1,6 @@
 using Google.Protobuf.WellKnownTypes;
 using Grpc.Core;
-using Practice.Grpc.Server.Protos;
+using Metanit;
 
 namespace Practice.Grpc.Server.Services;
 public class UserApiService

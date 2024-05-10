@@ -35,7 +35,7 @@ Console.WriteLine($"{createdUser.Id}. {createdUser.Name} - {createdUser.Age}");
 // Update
 try
 {
-    UserReply updatedUser = await client.UpdateUserAsync(new UpdateUserRequest() { Id = 1, Name = "Sam", Age = 28 });
+    UserReply updatedUser = await client.UpdateUserAsync(new UpdateUserRequest() { Id = 1, Name = "Tomas", Age = 38 });
 }
 catch (RpcException ex)
 {

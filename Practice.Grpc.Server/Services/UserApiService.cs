@@ -3,7 +3,7 @@ using Grpc.Core;
 using Metanit;
 
 namespace Practice.Grpc.Server.Services;
-public class UserApiService
+public class UserApiService : UserService.UserServiceBase
 {
     static int id = 0;
     static List<User> users = new()
@@ -12,7 +12,7 @@ public class UserApiService
         new User(++id, "Bob", 42)
     };
 
-    public Task<ListReply> ListUsers(Empty request, ServerCallContext context)
+    public override Task<ListReply> ListUsers(Empty request, ServerCallContext context)
     {
         var listReply = new ListReply();
         var userList = users
@@ -23,7 +23,7 @@ public class UserApiService
         return Task.FromResult(listReply);
     }
 
-    public Task<UserReply> GetUser(GetUserRequest request, ServerCallContext context)
+    public override Task<UserReply> GetUser(GetUserRequest request, ServerCallContext context)
     {
         var user = users.Find(u => u.Id == request.Id);
         if (user == null)
@@ -35,7 +35,7 @@ public class UserApiService
         return Task.FromResult(userReply);
     }
 
-    public Task<UserReply> CreateUser(CreateUserRequest request, ServerCallContext context)
+    public override Task<UserReply> CreateUser(CreateUserRequest request, ServerCallContext context)
     {
         var user = new User(++id, request.Name, request.Age);
         users.Add(user);
@@ -43,7 +43,7 @@ public class UserApiService
         return Task.FromResult(reply);
     }
 
-    public Task<UserReply> UpdateUser(UpdateUserRequest request, ServerCallContext context)
+    public override Task<UserReply> UpdateUser(UpdateUserRequest request, ServerCallContext context)
     {
         var user = users.Find(u => u.Id == request.Id);
 
@@ -59,7 +59,7 @@ public class UserApiService
         return Task.FromResult(reply);
     }
 
-    public Task<UserReply> DeleteUser(DeleteUserRequest request, ServerCallContext context)
+    public override Task<UserReply> DeleteUser(DeleteUserRequest request, ServerCallContext context)
     {
         var user = users.Find(u => u.Id == request.Id);
 
